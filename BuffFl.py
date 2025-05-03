@@ -13,13 +13,13 @@ username=input('Nhập Username Tik Tok ( Không Nhập "@")
             data='{"google_token":"t","token":"'+token+'","data":"'+data_follow+'","type":"follow"}'
             send_follow=requests.post('https://tikfollowers.com/api/free/send', headers=headers, data=data).json()
             if send_follow['o']=='Success!' and send_follow['success']==True and send_follow['type']=='success':
-                print('Buff Thành Công ')
+                print('Buff Thành Công Tool By Thành Lợi ')
                 continue
             elif send_follow['o']=='Oops...' and send_follow['success']==False and send_follow['type']=='info':
                 try:
                     thoigian=send_follow['message'].split('You need to wait for a new transaction. : ')[1].split('.')[0]
                     phut=thoigian.split(' Minutes')[0]
-                    giay=int(phut)*60
+                    giay=int(phut)*10
                     for i in range(giay, 0, -1):
                         print(f'Vui Lòng Chờ {i} Giây...', end='\r')
                         time.sleep(1)
