@@ -3,176 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURORA V50 - CLOUD ADMIN PANEL</title>
+    <title>AURORA V50 - PRO ADMIN</title>
     <style>
-        :root {
-            --neon: #00ffcc;
-            --bg: #050505;
-            --panel: #0a0a0a;
-        }
-        body { 
-            background: var(--bg); 
-            color: var(--neon); 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0;
-            overflow: hidden;
-        }
-        .panel { 
-            background: var(--panel); 
-            padding: 40px; 
-            border-radius: 20px; 
-            border: 2px solid var(--neon); 
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.3); 
-            width: 350px;
-            position: relative;
-        }
-        h1 { 
-            text-shadow: 0 0 15px var(--neon); 
-            letter-spacing: 5px; 
-            margin: 0 0 10px 0;
-            font-size: 24px;
-        }
-        .version { font-size: 10px; color: #666; margin-bottom: 20px; display: block; }
-        
-        .input-group { margin-bottom: 15px; text-align: left; }
-        label { font-size: 12px; margin-left: 5px; color: #888; }
-        
-        input, select { 
-            background: #000; 
-            border: 1px solid #333; 
-            color: var(--neon); 
-            padding: 12px; 
-            width: 100%; 
-            border-radius: 8px; 
-            outline: none; 
-            box-sizing: border-box;
-            margin-top: 5px;
-            transition: 0.3s;
-        }
-        input:focus, select:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
-        
-        button { 
-            background: var(--neon); 
-            color: #000; 
-            border: none; 
-            padding: 15px; 
-            width: 100%; 
-            font-weight: bold; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            margin-top: 10px;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        button:hover { 
-            background: #00cca3; 
-            transform: translateY(-2px); 
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4); 
-        }
-        
-        #status { 
-            margin-top: 20px; 
-            font-size: 13px; 
-            min-height: 40px; 
-            line-height: 1.5;
-        }
-        .success { color: #00ffcc; }
-        .error { color: #ff4444; }
+        :root { --neon: #00ffcc; --bg: #050505; --panel: #0a0a0a; --red: #ff4444; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; min-height: 100vh; }
+        .panel { background: var(--panel); padding: 30px; border-radius: 20px; border: 2px solid var(--neon); box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); width: 380px; margin-bottom: 20px; }
+        h1 { text-shadow: 0 0 10px var(--neon); letter-spacing: 3px; font-size: 22px; margin: 0 0 20px 0; text-align: center; }
+        .input-group { margin-bottom: 12px; text-align: left; }
+        label { font-size: 11px; color: #888; margin-left: 5px; }
+        input, select { background: #000; border: 1px solid #333; color: var(--neon); padding: 10px; width: 100%; border-radius: 8px; outline: none; box-sizing: border-box; margin-top: 5px; }
+        button { background: var(--neon); color: #000; border: none; padding: 12px; width: 100%; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.2s; }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--neon); }
+        .btn-red { background: var(--red); color: white; margin-top: 5px; }
+        .btn-orange { background: #f39c12; color: white; margin-top: 5px; }
+        #status { margin-top: 15px; font-size: 13px; text-align: center; min-height: 30px; }
     </style>
 </head>
 <body>
 
     <div class="panel">
-        <h1>AURORA V50</h1>
-        <span class="version">CLOUD KEY MANAGEMENT SYSTEM (FIREBASE)</span>
-        
+        <h1>AURORA V50 - CREATE</h1>
         <div class="input-group">
-            <label>TÊN KEY (ID)</label>
-            <input type="text" id="key" placeholder="Ví dụ: LOI_VIP_999">
+            <label>ID KEY</label>
+            <input type="text" id="key" placeholder="Nhập mã Key...">
         </div>
-
         <div class="input-group">
-            <label>THỜI HẠN SỬ DỤNG</label>
-            <select id="duration">
-                <option value="1">1 Ngày (Dùng thử)</option>
-                <option value="7">7 Ngày (Tuần)</option>
-                <option value="30" selected>30 Ngày (Tháng)</option>
-                <option value="365">365 Ngày (Năm)</option>
-                <option value="9999">Vĩnh Viễn (Lifetime)</option>
-            </select>
+            <label>THỜI HẠN / THIẾT BỊ</label>
+            <div style="display: flex; gap: 10px;">
+                <select id="duration">
+                    <option value="1">1 Ngày</option>
+                    <option value="30" selected>30 Ngày</option>
+                    <option value="9999">Vĩnh viễn</option>
+                </select>
+                <select id="maxDevices">
+                    <option value="1" selected>1 Máy</option>
+                    <option value="2">2 Máy</option>
+                </select>
+            </div>
         </div>
+        <button onclick="manageKey('create')">KÍCH HOẠT KEY MỚI</button>
+    </div>
 
+    <div class="panel" style="border-color: #ffaa00;">
+        <h1 style="text-shadow: 0 0 10px #ffaa00; color: #ffaa00;">QUẢN LÝ KEY</h1>
         <div class="input-group">
-            <label>GIỚI HẠN THIẾT BỊ (HWID)</label>
-            <select id="maxDevices">
-                <option value="1" selected>1 Thiết bị (Cá nhân)</option>
-                <option value="2">2 Thiết bị</option>
-                <option value="5">5 Thiết bị (Team)</option>
-            </select>
+            <label>NHẬP KEY CẦN XỬ LÝ</label>
+            <input type="text" id="targetKey" placeholder="Nhập đúng mã Key để xử lý...">
         </div>
-
-        <button onclick="addKey()">KÍCH HOẠT CLOUD KEY</button>
-        
+        <button class="btn-orange" onclick="manageKey('lock')">KHÓA KEY (BAN)</button>
+        <button style="background: #2ecc71;" onclick="manageKey('unlock')">MỞ KHÓA (ACTIVE)</button>
+        <button class="btn-red" onclick="manageKey('delete')">XÓA VĨNH VIỄN</button>
         <div id="status"></div>
     </div>
 
     <script>
-        // LINK FIREBASE CỦA THÀNH LỢI
-        const DB_URL = "https://thanhloi-mode-default-rtdb.asia-southeast1.firebasedatabase.app/keys.json";
+        const BASE_URL = "https://thanhloi-mode-default-rtdb.asia-southeast1.firebasedatabase.app/keys";
 
-        async function addKey() {
-            const key = document.getElementById('key').value.trim();
-            const days = parseInt(document.getElementById('duration').value);
-            const maxDevices = parseInt(document.getElementById('maxDevices').value);
+        async function manageKey(action) {
             const statusDiv = document.getElementById('status');
-
-            if(!key) {
-                alert("Admin Lợi ơi, hãy nhập tên Key!");
-                return;
-            }
-
-            statusDiv.innerHTML = "<span style='color: #f1c40f'>⏳ Đang khởi tạo dữ liệu...</span>";
-
-            // Tính toán ngày hết hạn
-            let expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + days);
-            const expireString = days > 5000 ? "Vĩnh viễn" : expireDate.toLocaleString('vi-VN');
+            const k = document.getElementById('key').value.trim();
+            const tk = document.getElementById('targetKey').value.trim();
+            
+            let url, body, method;
+            statusDiv.innerHTML = "⏳ Đang xử lý...";
 
             try {
-                // Sử dụng PATCH để thêm key mới vào nhánh 'keys' mà không làm mất các key cũ
-                const response = await fetch(DB_URL, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        [key]: {
-                            "rank": "VIP",
-                            "status": "Active",
-                            "created_at": new Date().toLocaleString('vi-VN'),
-                            "expired_at": expireString,
-                            "max_devices": maxDevices,
-                            "used_devices": 0,
-                            "hwid_list": {} // Danh sách lưu trữ HWID khi người dùng đăng nhập
-                        }
-                    })
-                });
-
-                if(response.ok) {
-                    statusDiv.className = "success";
-                    statusDiv.innerHTML = `✅ KÍCH HOẠT THÀNH CÔNG!<br>
-                                          Key: <b>${key}</b><br>
-                                          Hết hạn: ${expireString}<br>
-                                          Thiết bị: ${maxDevices}`;
-                    document.getElementById('key').value = ""; 
+                if (action === 'create') {
+                    if(!k) return alert("Vui lòng nhập ID Key!");
+                    url = `${BASE_URL}.json`;
+                    method = "PATCH";
+                    let exp = new Date(); exp.setDate(exp.getDate() + parseInt(document.getElementById('duration').value));
+                    body = JSON.stringify({ [k]: {
+                        "rank": "VIP", "status": "Active", "max_devices": parseInt(document.getElementById('maxDevices').value),
+                        "used_devices": 0, "expired_at": exp.toLocaleString('vi-VN'), "hwid_list": {}
+                    }});
                 } else {
-                    throw new Error("Server từ chối yêu cầu.");
+                    if(!tk) return alert("Vui lòng nhập Target Key!");
+                    if (action === 'delete') {
+                        url = `${BASE_URL}/${tk}.json`; method = "DELETE";
+                    } else {
+                        url = `${BASE_URL}/${tk}.json`; method = "PATCH";
+                        body = JSON.stringify({ "status": action === 'lock' ? "Banned" : "Active" });
+                    }
+                }
+
+                const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body });
+                if(res.ok) {
+                    statusDiv.style.color = "#00ffcc";
+                    statusDiv.innerText = `✅ THÀNH CÔNG: ${action.toUpperCase()}`;
+                    if(action === 'create') document.getElementById('key').value = "";
                 }
             } catch(e) {
-                statusDiv.className = "error";
-                statusDiv.innerText = "❌ LỖI: Không thể kết nối Firebase!";
+                statusDiv.style.color = "#ff4444"; statusDiv.innerText = "❌ LỖI KẾT NỐI!";
             }
         }
     </script>
