@@ -20,40 +20,41 @@
     </div>
 
     <script>
-        async function create() {
-            const T = document.getElementById('token').value;
-            const K = document.getElementById('keyName').value;
-            const M = document.getElementById('msg');
-            // Sửa TloiIos thành Tloilos (thêm chữ s vào cuối tên người dùng)
-            const R = "Tloilos/thanhloicode"; 
-            const F = "key.json";
+async function create() {
+    const T = document.getElementById('token').value.trim();
+    const K = document.getElementById('keyName').value.trim();
+    const M = document.getElementById('msg');
+    
+    // Đã khớp hoàn toàn với ảnh 96 của Lợi
+    const R = "Tloilos/thanhloicode"; 
+    const F = "key.json"; 
 
-            if(!T || !K) return alert("Nhập đủ Token và Key!");
-            M.innerText = "⏳ Đang xử lý...";
+    if(!T || !K) return alert("Admin ơi, nhập mã ghp_ và tên Key nhé!");
+    M.innerText = "⏳ Đang kết nối...";
 
-            try {
-                const r = await fetch(`https://api.github.com/repos/${R}/contents/${F}`, {
-                    headers: { Authorization: `token ${T}` }
-                });
-                const d = await r.json();
-                const content = JSON.parse(atob(d.content.replace(/\s/g, '')));
+    try {
+        const r = await fetch(`https://api.github.com/repos/${R}/contents/${F}`, {
+            headers: { 'Authorization': `token ${T}` }
+        });
+        const d = await r.json();
+        const content = JSON.parse(atob(d.content.replace(/\s/g, '')));
 
-                content[K] = { "rank": "VIP", "status": "Active" };
+        content[K] = { "rank": "VIP", "status": "Active" };
 
-                const up = await fetch(`https://api.github.com/repos/${R}/contents/${F}`, {
-                    method: "PUT",
-                    headers: { Authorization: `token ${T}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        message: "Add: " + K,
-                        content: btoa(JSON.stringify(content, null, 2)),
-                        sha: d.sha
-                    })
-                });
+        const up = await fetch(`https://api.github.com/repos/${R}/contents/${F}`, {
+            method: "PUT",
+            headers: { 'Authorization': `token ${T}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: "Add Key: " + K,
+                content: btoa(JSON.stringify(content, null, 2)),
+                sha: d.sha
+            })
+        });
 
-                if(up.ok) { M.style.color = "#2ecc71"; M.innerText = "✅ ĐÃ THÊM KEY: " + K; }
-                else { M.style.color = "#e74c3c"; M.innerText = "❌ Lỗi: Token hết hạn hoặc sai quyền!"; }
-            } catch(e) { M.innerText = "❌ Lỗi kết nối API!"; }
-        }
-    </script>
+        if(up.ok) { M.innerHTML = "<b style='color:#2ecc71'>✅ THÀNH CÔNG RỒI!</b>"; }
+        else { M.innerHTML = "<b style='color:#e74c3c'>❌ Lỗi quyền Token!</b>"; }
+    } catch(e) { M.innerHTML = "<b style='color:#e74c3c'>❌ Lỗi kết nối API!</b>"; }
+}
+</script>
 </body>
 </html>
