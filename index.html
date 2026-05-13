@@ -1,102 +1,623 @@
+# AURORA V50 - PRO ADMIN PANEL (FULL UPGRADE)
+
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURORA V50 - PRO ADMIN</title>
-    <style>
-        :root { --neon: #00ffcc; --bg: #050505; --panel: #0a0a0a; --red: #ff4444; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; min-height: 100vh; }
-        .panel { background: var(--panel); padding: 30px; border-radius: 20px; border: 2px solid var(--neon); box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); width: 380px; margin-bottom: 20px; }
-        h1 { text-shadow: 0 0 10px var(--neon); letter-spacing: 3px; font-size: 22px; margin: 0 0 20px 0; text-align: center; }
-        .input-group { margin-bottom: 12px; text-align: left; }
-        label { font-size: 11px; color: #888; margin-left: 5px; }
-        input, select { background: #000; border: 1px solid #333; color: var(--neon); padding: 10px; width: 100%; border-radius: 8px; outline: none; box-sizing: border-box; margin-top: 5px; }
-        button { background: var(--neon); color: #000; border: none; padding: 12px; width: 100%; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.2s; }
-        button:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--neon); }
-        .btn-red { background: var(--red); color: white; margin-top: 5px; }
-        .btn-orange { background: #f39c12; color: white; margin-top: 5px; }
-        #status { margin-top: 15px; font-size: 13px; text-align: center; min-height: 30px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURORA V50 - PRO ADMIN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --bg:#05070d;
+    --panel:#0d111c;
+    --panel2:#101827;
+    --line:#1f2a44;
+    --neon:#00ffd5;
+    --cyan:#00c3ff;
+    --red:#ff4d6d;
+    --green:#00ff88;
+    --orange:#ffb347;
+    --text:#d8ffff;
+}
+
+body{
+    background: radial-gradient(circle at top,#10172b 0%,#05070d 60%);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:rgba(0,255,213,0.08);
+    filter:blur(100px);
+    top:-200px;
+    left:-100px;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:rgba(0,195,255,0.08);
+    filter:blur(100px);
+    bottom:-150px;
+    right:-100px;
+    z-index:-1;
+}
+
+.container{
+    width:95%;
+    max-width:1450px;
+    margin:auto;
+    padding:30px 0;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    padding:20px 25px;
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:22px;
+    background:rgba(13,17,28,0.8);
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 30px rgba(0,255,213,0.08);
+}
+
+.logo h1{
+    font-size:32px;
+    color:var(--neon);
+    letter-spacing:3px;
+    text-shadow:0 0 15px rgba(0,255,213,0.7);
+}
+
+.logo p{
+    font-size:13px;
+    color:#7e93b5;
+}
+
+.stats{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.stat-box{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    padding:15px 20px;
+    border-radius:16px;
+    min-width:120px;
+    text-align:center;
+}
+
+.stat-box h2{
+    color:var(--neon);
+    font-size:24px;
+}
+
+.stat-box span{
+    font-size:12px;
+    color:#8ba2c7;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:370px 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:rgba(13,17,28,0.9);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:25px;
+    padding:25px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
+}
+
+.panel-title{
+    font-size:22px;
+    margin-bottom:20px;
+    color:var(--neon);
+    text-shadow:0 0 10px rgba(0,255,213,0.5);
+}
+
+.input-group{
+    margin-bottom:16px;
+}
+
+.input-group label{
+    display:block;
+    font-size:12px;
+    color:#8ea3c3;
+    margin-bottom:8px;
+    letter-spacing:1px;
+}
+
+input,select{
+    width:100%;
+    background:#090d16;
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:14px;
+    border-radius:14px;
+    outline:none;
+    transition:0.25s;
+}
+
+input:focus,select:focus{
+    border-color:var(--neon);
+    box-shadow:0 0 15px rgba(0,255,213,0.2);
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:700;
+    margin-top:10px;
+    transition:0.25s;
+    letter-spacing:1px;
+}
+
+.btn:hover{
+    transform:translateY(-2px) scale(1.01);
+}
+
+.btn-main{
+    background:linear-gradient(135deg,var(--neon),var(--cyan));
+    color:#000;
+    box-shadow:0 0 20px rgba(0,255,213,0.3);
+}
+
+.btn-lock{
+    background:linear-gradient(135deg,#ff8f00,var(--orange));
+    color:#000;
+}
+
+.btn-unlock{
+    background:linear-gradient(135deg,#00e676,#00c853);
+    color:#000;
+}
+
+.btn-delete{
+    background:linear-gradient(135deg,#ff1744,#ff4569);
+    color:white;
+}
+
+.status-box{
+    margin-top:15px;
+    padding:12px;
+    border-radius:12px;
+    background:#081019;
+    border:1px solid rgba(255,255,255,0.05);
+    font-size:13px;
+    min-height:45px;
+}
+
+.search-box{
+    margin-bottom:18px;
+}
+
+.search-box input{
+    background:#090d16;
+}
+
+.table-wrap{
+    overflow:auto;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
+}
+
+.table th{
+    background:#0f1726;
+    color:var(--neon);
+    padding:16px;
+    text-align:left;
+    font-size:13px;
+    position:sticky;
+    top:0;
+}
+
+.table td{
+    padding:14px 16px;
+    border-top:1px solid rgba(255,255,255,0.05);
+    font-size:13px;
+}
+
+.table tr:hover{
+    background:rgba(255,255,255,0.03);
+}
+
+.badge{
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.active{
+    background:rgba(0,255,136,0.15);
+    color:var(--green);
+}
+
+.banned{
+    background:rgba(255,77,109,0.15);
+    color:var(--red);
+}
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.small-btn{
+    border:none;
+    padding:9px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:600;
+}
+
+.lock-btn{
+    background:#ff9800;
+    color:black;
+}
+
+.unlock-btn{
+    background:#00e676;
+    color:black;
+}
+
+.delete-btn{
+    background:#ff1744;
+    color:white;
+}
+
+.footer{
+    margin-top:20px;
+    text-align:center;
+    color:#5d7194;
+    font-size:12px;
+}
+
+@media(max-width:1050px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+    .topbar{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+    }
+
+    .stats{
+        width:100%;
+    }
+
+    .stat-box{
+        flex:1;
+    }
+}
+</style>
 </head>
 <body>
 
-    <div class="panel">
-        <h1>AURORA V50 - CREATE</h1>
-        <div class="input-group">
-            <label>ID KEY</label>
-            <input type="text" id="key" placeholder="Nhập mã Key...">
+<div class="container">
+
+    <div class="topbar">
+        <div class="logo">
+            <h1>AURORA V50</h1>
+            <p>PRO ADMIN KEY SYSTEM PANEL</p>
         </div>
-        <div class="input-group">
-            <label>THỜI HẠN / THIẾT BỊ</label>
-            <div style="display: flex; gap: 10px;">
-                <select id="duration">
-                    <option value="1">1 Ngày</option>
-                    <option value="30" selected>30 Ngày</option>
-                    <option value="9999">Vĩnh viễn</option>
-                </select>
-                <select id="maxDevices">
-                    <option value="1" selected>1 Máy</option>
-                    <option value="2">2 Máy</option>
-                </select>
+
+        <div class="stats">
+            <div class="stat-box">
+                <h2 id="totalKeys">0</h2>
+                <span>TỔNG KEY</span>
+            </div>
+
+            <div class="stat-box">
+                <h2 id="activeKeys">0</h2>
+                <span>ACTIVE</span>
+            </div>
+
+            <div class="stat-box">
+                <h2 id="bannedKeys">0</h2>
+                <span>BANNED</span>
             </div>
         </div>
-        <button onclick="manageKey('create')">KÍCH HOẠT KEY MỚI</button>
     </div>
 
-    <div class="panel" style="border-color: #ffaa00;">
-        <h1 style="text-shadow: 0 0 10px #ffaa00; color: #ffaa00;">QUẢN LÝ KEY</h1>
-        <div class="input-group">
-            <label>NHẬP KEY CẦN XỬ LÝ</label>
-            <input type="text" id="targetKey" placeholder="Nhập đúng mã Key để xử lý...">
+    <div class="grid">
+
+        <div class="panel">
+            <div class="panel-title">THÊM KEY MỚI</div>
+
+            <div class="input-group">
+                <label>NHẬP KEY</label>
+                <input type="text" id="keyInput" placeholder="VD: AURORA-XXXX-VIP">
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>THỜI HẠN</label>
+                    <select id="durationInput">
+                        <option value="1">1 Ngày</option>
+                        <option value="7">7 Ngày</option>
+                        <option value="30" selected>30 Ngày</option>
+                        <option value="90">90 Ngày</option>
+                        <option value="365">365 Ngày</option>
+                        <option value="9999">Vĩnh Viễn</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>THIẾT BỊ</label>
+                    <select id="deviceInput">
+                        <option value="1">1 Máy</option>
+                        <option value="2">2 Máy</option>
+                        <option value="3">3 Máy</option>
+                        <option value="5">5 Máy</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-main" onclick="createKey()">
+                TẠO KEY VIP
+            </button>
+
+            <div class="status-box" id="statusBox">
+                ⚡ Hệ thống sẵn sàng...
+            </div>
         </div>
-        <button class="btn-orange" onclick="manageKey('lock')">KHÓA KEY (BAN)</button>
-        <button style="background: #2ecc71;" onclick="manageKey('unlock')">MỞ KHÓA (ACTIVE)</button>
-        <button class="btn-red" onclick="manageKey('delete')">XÓA VĨNH VIỄN</button>
-        <div id="status"></div>
+
+        <div class="panel">
+            <div class="panel-title">DANH SÁCH KEY</div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm key..." onkeyup="filterKeys()">
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>KEY</th>
+                            <th>STATUS</th>
+                            <th>THIẾT BỊ</th>
+                            <th>ĐÃ DÙNG</th>
+                            <th>HẾT HẠN</th>
+                            <th>HÀNH ĐỘNG</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="keyTable"></tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
-    <script>
-        const BASE_URL = "https://thanhloi-mode-default-rtdb.asia-southeast1.firebasedatabase.app/keys";
+    <div class="footer">
+        AURORA V50 © PRO ADMIN PANEL
+    </div>
 
-        async function manageKey(action) {
-            const statusDiv = document.getElementById('status');
-            const k = document.getElementById('key').value.trim();
-            const tk = document.getElementById('targetKey').value.trim();
-            
-            let url, body, method;
-            statusDiv.innerHTML = "⏳ Đang xử lý...";
+</div>
 
-            try {
-                if (action === 'create') {
-                    if(!k) return alert("Vui lòng nhập ID Key!");
-                    url = `${BASE_URL}.json`;
-                    method = "PATCH";
-                    let exp = new Date(); exp.setDate(exp.getDate() + parseInt(document.getElementById('duration').value));
-                    body = JSON.stringify({ [k]: {
-                        "rank": "VIP", "status": "Active", "max_devices": parseInt(document.getElementById('maxDevices').value),
-                        "used_devices": 0, "expired_at": exp.toLocaleString('vi-VN'), "hwid_list": {}
-                    }});
-                } else {
-                    if(!tk) return alert("Vui lòng nhập Target Key!");
-                    if (action === 'delete') {
-                        url = `${BASE_URL}/${tk}.json`; method = "DELETE";
-                    } else {
-                        url = `${BASE_URL}/${tk}.json`; method = "PATCH";
-                        body = JSON.stringify({ "status": action === 'lock' ? "Banned" : "Active" });
-                    }
-                }
+<script>
+const BASE_URL = "https://apiseverkey-thanhloi-default-rtdb.asia-southeast1.firebasedatabase.app/keys";
 
-                const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body });
-                if(res.ok) {
-                    statusDiv.style.color = "#00ffcc";
-                    statusDiv.innerText = `✅ THÀNH CÔNG: ${action.toUpperCase()}`;
-                    if(action === 'create') document.getElementById('key').value = "";
-                }
-            } catch(e) {
-                statusDiv.style.color = "#ff4444"; statusDiv.innerText = "❌ LỖI KẾT NỐI!";
-            }
+async function fetchKeys(){
+    try{
+        const res = await fetch(`${BASE_URL}.json`);
+        const data = await res.json();
+
+        renderKeys(data || {});
+        updateStats(data || {});
+    }
+    catch(err){
+        setStatus("❌ Không thể tải dữ liệu!", true);
+    }
+}
+
+function updateStats(data){
+    const values = Object.values(data);
+
+    document.getElementById("totalKeys").innerText = values.length;
+    document.getElementById("activeKeys").innerText = values.filter(v=>v.status === "Active").length;
+    document.getElementById("bannedKeys").innerText = values.filter(v=>v.status === "Banned").length;
+}
+
+function renderKeys(data){
+    const table = document.getElementById("keyTable");
+    table.innerHTML = "";
+
+    Object.entries(data).reverse().forEach(([key,val])=>{
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${key}</td>
+
+            <td>
+                <span class="badge ${val.status === 'Active' ? 'active' : 'banned'}">
+                    ${val.status}
+                </span>
+            </td>
+
+            <td>${val.max_devices || 0}</td>
+            <td>${val.used_devices || 0}</td>
+            <td>${val.expired_at || 'N/A'}</td>
+
+            <td>
+                <div class="action-buttons">
+                    <button class="small-btn lock-btn" onclick="lockKey('${key}')">
+                        KHÓA
+                    </button>
+
+                    <button class="small-btn unlock-btn" onclick="unlockKey('${key}')">
+                        MỞ
+                    </button>
+
+                    <button class="small-btn delete-btn" onclick="deleteKey('${key}')">
+                        XÓA
+                    </button>
+                </div>
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+async function createKey(){
+    const key = document.getElementById("keyInput").value.trim();
+    const duration = parseInt(document.getElementById("durationInput").value);
+    const devices = parseInt(document.getElementById("deviceInput").value);
+
+    if(!key){
+        return alert("Vui lòng nhập key!");
+    }
+
+    let exp = new Date();
+    exp.setDate(exp.getDate() + duration);
+
+    const body = {
+        [key]:{
+            rank:"VIP",
+            status:"Active",
+            max_devices:devices,
+            used_devices:0,
+            expired_at:exp.toLocaleString('vi-VN'),
+            hwid_list:{}
         }
-    </script>
+    };
+
+    try{
+        await fetch(`${BASE_URL}.json`,{
+            method:"PATCH",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(body)
+        });
+
+        document.getElementById("keyInput").value = "";
+
+        setStatus("✅ Tạo key thành công!");
+        fetchKeys();
+    }
+    catch(err){
+        setStatus("❌ Tạo key thất bại!", true);
+    }
+}
+
+async function lockKey(key){
+    await updateStatus(key,"Banned");
+}
+
+async function unlockKey(key){
+    await updateStatus(key,"Active");
+}
+
+async function updateStatus(key,status){
+    try{
+        await fetch(`${BASE_URL}/${key}.json`,{
+            method:"PATCH",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                status:status
+            })
+        });
+
+        setStatus(`✅ ${status === 'Active' ? 'Mở khóa' : 'Khóa'} key thành công!`);
+        fetchKeys();
+    }
+    catch(err){
+        setStatus("❌ Không thể cập nhật key!", true);
+    }
+}
+
+async function deleteKey(key){
+
+    const confirmDelete = confirm(`Xóa vĩnh viễn key ${key} ?`);
+
+    if(!confirmDelete) return;
+
+    try{
+        await fetch(`${BASE_URL}/${key}.json`,{
+            method:"DELETE"
+        });
+
+        setStatus("🗑️ Đã xóa key!");
+        fetchKeys();
+    }
+    catch(err){
+        setStatus("❌ Xóa key thất bại!", true);
+    }
+}
+
+function filterKeys(){
+    const value = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#keyTable tr");
+
+    rows.forEach(row=>{
+        row.style.display = row.innerText.toLowerCase().includes(value)
+        ? ""
+        : "none";
+    });
+}
+
+function setStatus(msg,error=false){
+    const box = document.getElementById("statusBox");
+
+    box.innerText = msg;
+    box.style.color = error ? '#ff5f7a' : '#00ffd5';
+}
+
+fetchKeys();
+setInterval(fetchKeys,5000);
+</script>
+
 </body>
 </html>
